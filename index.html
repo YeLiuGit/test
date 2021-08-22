@@ -14,7 +14,7 @@
 <p>         
         x = last_proof
         y = 0 # start from 0
-        while not sha256(str(x*y).encode()).hexdigest()[-1].startswith("0000"):
+        while not sha256(str(x*y).encode()).hexdigest().startswith("0000"):
             y += 1
         
         return y
@@ -22,5 +22,5 @@
 
 <h> va </h>
 <p>
-  return sha256(str(last_proof * proof).encode()).hexdigest()[-1].startswith("0000")
+  return sha256(str(last_proof * proof).encode()).hexdigest().startswith("0000")
 </p>
