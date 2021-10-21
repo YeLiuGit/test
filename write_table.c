@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "write_table"
 #include "duplicates.h"
 //LIST *file_name = list_new();
 //HASHTABLE *file_hash = hashtable_new();

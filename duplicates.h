@@ -1,6 +1,7 @@
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdint.h>
 
 #define CHECK_ALLOC(p) if(p == NULL) { perror(__func__); exit(EXIT_FAILURE); }
 
@@ -11,7 +12,15 @@ extern	char	*strdup(char *string);
 //declare global constant
 #define HUGE_INT 10000
 #define OPTLIST "aAf:h:lq"
-#define MAXPATHLEN 200
+#define MAXPATHLEN 2000
+
+//-----------------data type and data structs-------------------
+typedef struct _list {
+    char           *string;
+    struct _list   *next;
+} LIST;
+
+typedef LIST * HASHTABLE;
 
 //-----------------global variables goes here-------------------
 extern int num_of_files;
@@ -23,16 +32,12 @@ extern char *dir_name;
 extern char *path_names[];
 extern HASHTABLE *file_hash;
 
-//-----------------data type and data structs-------------------
-typedef struct _list {
-    char           *string;
-    struct _list   *next;
-} LIST;
-
-typedef	LIST * HASHTABLE;
-
 //-----------------global functions goes here-------------------
 //functions abour list
+
+extern void command(char opt);
+extern void argument(char* arg);
+extern void scan_directory(char *dirname);
 
 
 extern	LIST	*list_new(void);

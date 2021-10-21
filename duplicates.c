@@ -10,10 +10,10 @@
 
 #include "duplicates.h"
 
-num_of_files = 0;
-num_of_bytes = 0;
-num_of_unique = 0;
-bytes_of_unique = 0;
+int num_of_files = 0;
+int num_of_bytes = 0;
+int num_of_unique = 0;
+int bytes_of_unique = 0;
 char *path_names[HUGE_INT];
 
 
@@ -21,7 +21,7 @@ int main(int argc, char* argv[]) {
 
     int opt;
 
-    HASHTABLE *file_hash = hashtable_new();
+    //HASHTABLE *file_hash = hashtable_new();
 
 
     while((opt = getopt(argc, argv, OPTLIST)) != -1) {
@@ -29,7 +29,7 @@ int main(int argc, char* argv[]) {
             command(opt);
         }
         else if(opt == 'A'){
-            exit(EXIT_FAILURE)
+            exit(EXIT_FAILURE);
         }
         else if(opt == 'f'){
             command(opt);
