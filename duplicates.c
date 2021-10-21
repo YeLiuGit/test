@@ -22,11 +22,9 @@ int main(int argc, char* argv[]) {
 
     int opt;
 
-    HASHTABLE *file_hash = hashtable_new();
-
     printf("dir name is %s\n", argv[argc-1]);
     scan_directory(argv[argc-1]);
-    write(path_names[]);
+    //write(path_names);
 
     while((opt = getopt(argc, argv, OPTLIST)) != -1) {
         if(opt == 'a'){

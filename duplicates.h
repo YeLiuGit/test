@@ -53,8 +53,9 @@ extern	bool		 hashtable_find(HASHTABLE *, char *string);
 
 //-------------------------------------------------------------
 extern void scan_directory(char *dirname);
-extern void write(char* pahts[])
+extern void write(char* pahts[]);
 extern void compare(char *hash);
 extern bool compare_all();
+extern char* strSHA2(char* filename);
 
 

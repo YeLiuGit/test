@@ -39,7 +39,7 @@ void scan_directory(char *dirname)
         else{
             path_names[num_of_files] = pathname;
             printf("found file%s\n", pathname);
-            num_of_bytes = num_of_bytes + stat_info->st_size;
+            num_of_bytes = num_of_bytes + stat_info.st_size;
             ++num_of_files;
         }
     }
@@ -48,16 +48,17 @@ void scan_directory(char *dirname)
     closedir(dirp);
 }
 
-void write(char* pahts[]){
+void write(char* paths[]){
     int i = 0;
+    HASHTABLE *file_hash = hashtable_new();
     // read all files
     while(paths[i] != NULL){
         char *hash = strSHA2(paths[i]);
         if(hashtable_find(file_hash, hash)){
             ++num_of_dup;
             struct stat dup_info;
-            stat(pathname, &dup_info);
-            bytes_of_dup = bytes_of_dup + dup_info->st_size;
+            stat(paths[i], &dup_info);
+            bytes_of_dup = bytes_of_dup + dup_info.st_size;
         }
         else{
             hashtable_add(file_hash, hash);
