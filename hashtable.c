@@ -47,12 +47,14 @@ LIST *list_add(LIST *list, char *newstring)
 
 uint32_t hash_string(char *string)
 {
-    uint32_t hash = 0;
 
+    uint32_t hash = 0;
+	//printf("%s\n END\n", string);
     while(*string != '\0') {
         hash = hash*33 + *string;
         ++string;
     }
+    
     return hash;
 }
 
@@ -66,8 +68,9 @@ HASHTABLE *hashtable_new(void)
 
 void hashtable_add(HASHTABLE *hashtable, char *string)
 {
+	//printf("b\n");
     uint32_t h   = hash_string(string) % HUGE_INT;    // choose list
-
+	//printf("a\n");
     hashtable[h] = list_add(hashtable[h], string);
 }
 
@@ -77,4 +80,5 @@ bool hashtable_find(HASHTABLE *hashtable, char *string)
     uint32_t h	= hash_string(string) % HUGE_INT;     // choose list
 
     return list_find(hashtable[h], string);
+    //return true;
 }

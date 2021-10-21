@@ -33,17 +33,17 @@ void scan_directory(char *dirname)
         }
         //find a directory in current dirname
         else if(dp->d_type == 4){
-            scan_directory(dirname);
+            printf("found dir %s\n", pathname);
+            scan_directory(pathname);
         }
         //find a file in current dirname
         else{
-            path_names[num_of_files] = pathname;
-            printf("found file%s\n", pathname);
+            path_names[num_of_files] = strdup(pathname);
+            printf("found file %s\n", path_names[num_of_files]);
             num_of_bytes = num_of_bytes + stat_info.st_size;
             ++num_of_files;
         }
     }
-
 //  CLOSE THE DIRECTORY
     closedir(dirp);
 }
@@ -53,15 +53,21 @@ void write(char* paths[]){
     HASHTABLE *file_hash = hashtable_new();
     // read all files
     while(paths[i] != NULL){
+    //printf("filename in array: %s\n", path_names[i]);
         char *hash = strSHA2(paths[i]);
+        ++i;
         if(hashtable_find(file_hash, hash)){
+            printf("working before a if\n");
             ++num_of_dup;
             struct stat dup_info;
             stat(paths[i], &dup_info);
             bytes_of_dup = bytes_of_dup + dup_info.st_size;
+            printf("working after a if\n");
         }
         else{
+            printf("working before a else\n");
             hashtable_add(file_hash, hash);
+            printf("working after a else\n");
         }
     }
 }

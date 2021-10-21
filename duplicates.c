@@ -24,7 +24,7 @@ int main(int argc, char* argv[]) {
 
     printf("dir name is %s\n", argv[argc-1]);
     scan_directory(argv[argc-1]);
-    //write(path_names);
+    write(path_names);
 
     while((opt = getopt(argc, argv, OPTLIST)) != -1) {
         if(opt == 'a'){
@@ -62,6 +62,6 @@ int main(int argc, char* argv[]) {
 
     printf("num_of_file:%i\n", num_of_files);
     printf("num_of_bytes:%i\n", num_of_bytes);
-    printf("num_of_dup:%i\n", num_of_dup);
-    printf("bytes_of_dup:%i\n", bytes_of_dup);
+    printf("num_of_unique file:%i\n", num_of_files - num_of_dup);
+    printf("bytes_of_unique:%i\n", num_of_bytes - bytes_of_dup);
 }
