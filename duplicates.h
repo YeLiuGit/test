@@ -25,12 +25,14 @@ typedef LIST * HASHTABLE;
 //-----------------global variables goes here-------------------
 extern int num_of_files;
 extern int num_of_bytes;
-extern int num_of_dup;
-extern int bytes_of_dup;
+extern int num_of_unique;
+extern int bytes_of_unique;
 extern bool aflag;
+extern bool find_dup;
 
 extern char *dir_name;
 extern char *path_names[];
+extern int dup[];
 extern HASHTABLE *file_hash;
 
 //-----------------global functions goes here-------------------
@@ -53,9 +55,10 @@ extern	bool		 hashtable_find(HASHTABLE *, char *string);
 
 //-------------------------------------------------------------
 extern void scan_directory(char *dirname);
-extern void write(char* pahts[]);
-extern void compare(char *hash);
-extern bool compare_all();
+extern void write(void);
+extern bool compare(char *hash);
+extern void compare_all();
 extern char* strSHA2(char* filename);
+
 
 

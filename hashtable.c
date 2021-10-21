@@ -80,5 +80,4 @@ bool hashtable_find(HASHTABLE *hashtable, char *string)
     uint32_t h	= hash_string(string) % HUGE_INT;     // choose list
 
     return list_find(hashtable[h], string);
-    //return true;
 }

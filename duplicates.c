@@ -12,19 +12,32 @@
 
 int num_of_files = 0;
 int num_of_bytes = 0;
-int num_of_dup = 0;
-int bytes_of_dup = 0;
+int num_of_unique = 0;
+int bytes_of_unique = 0;
 char *path_names[HUGE_INT];
+int dup[HUGE_INT];
 bool aflag = false;
+bool find_dup = false;
 
+void print_stat(){
+    printf("num_of_file:%i\n", num_of_files);
+    printf("num_of_bytes:%i\n", num_of_bytes);
+    printf("num_of_unique file:%i\n", num_of_files - num_of_unique);
+    printf("bytes_of_unique:%i\n", num_of_bytes - bytes_of_unique);
+}
+
+void usage(){
+    printf("some error happens\n");
+    exit(EXIT_FAILURE);
+}
 
 int main(int argc, char* argv[]) {
-
+    bool lflag = false;
     int opt;
 
     printf("dir name is %s\n", argv[argc-1]);
     scan_directory(argv[argc-1]);
-    write(path_names);
+    write();
 
     while((opt = getopt(argc, argv, OPTLIST)) != -1) {
         if(opt == 'a'){
@@ -35,33 +48,46 @@ int main(int argc, char* argv[]) {
         }
         else if(opt == 'f'){
             char *file_hash = strSHA2(optarg);
-            compare(file_hash);
-        }
-        else if(opt == 'h'){
-            compare(optarg);
-        }
-        else if(opt == 'l'){
-            compare_all();
-        }
-        else if(opt == 'q'){
-            if (compare_all()){
-                exit(EXIT_FAILURE);
+            if (compare(file_hash)){
+                exit(EXIT_SUCCESS);
             }
             else{
+                exit(EXIT_FAILURE);
+            }
+        }
+        else if(opt == 'h'){
+            if (compare(optarg)){
                 exit(EXIT_SUCCESS);
+            }
+            else{
+                exit(EXIT_FAILURE);
+            }
+        }
+        else if(opt == 'l'){
+            lflag = !lflag;
+        }
+        else if(opt == 'q'){
+            if (find_dup){
+                exit(EXIT_SUCCESS);
+            }
+            else{
+                exit(EXIT_FAILURE);
             }
         }
         else{
             argc = -1;
         }
     }
-    if(argc < 0) {
-        printf("unexpected option\n");  
+    if(argc < 2) {
+        usage();  
         exit(EXIT_FAILURE);
     }
 
-    printf("num_of_file:%i\n", num_of_files);
-    printf("num_of_bytes:%i\n", num_of_bytes);
-    printf("num_of_unique file:%i\n", num_of_files - num_of_dup);
-    printf("bytes_of_unique:%i\n", num_of_bytes - bytes_of_dup);
+    if(argc == 2 || aflag){
+        print_stat();
+    }
+
+    if(lflag){
+        compare_all();
+    }
 }

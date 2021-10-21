@@ -48,26 +48,23 @@ void scan_directory(char *dirname)
     closedir(dirp);
 }
 
-void write(char* paths[]){
+void write(){
     int i = 0;
     HASHTABLE *file_hash = hashtable_new();
     // read all files
-    while(paths[i] != NULL){
+    while(path_names[i] != NULL){
     //printf("filename in array: %s\n", path_names[i]);
-        char *hash = strSHA2(paths[i]);
+        char *hash = strSHA2(path_names[i]);
         ++i;
-        if(hashtable_find(file_hash, hash)){
-            printf("working before a if\n");
-            ++num_of_dup;
-            struct stat dup_info;
-            stat(paths[i], &dup_info);
-            bytes_of_dup = bytes_of_dup + dup_info.st_size;
-            printf("working after a if\n");
+        if(!hashtable_find(file_hash, hash)){
+            hashtable_add(file_hash, hash);
+            ++num_of_unique;
+            struct stat unique_info;
+            stat(path_names[i], &unique_info);
+            bytes_of_unique = bytes_of_unique + unique_info.st_size;
         }
         else{
-            printf("working before a else\n");
-            hashtable_add(file_hash, hash);
-            printf("working after a else\n");
+            find_dup = true;
         }
     }
 }
