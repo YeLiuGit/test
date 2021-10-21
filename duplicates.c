@@ -12,38 +12,46 @@
 
 int num_of_files = 0;
 int num_of_bytes = 0;
-int num_of_unique = 0;
-int bytes_of_unique = 0;
+int num_of_dup = 0;
+int bytes_of_dup = 0;
 char *path_names[HUGE_INT];
+bool aflag = false;
 
 
 int main(int argc, char* argv[]) {
 
     int opt;
 
-    //HASHTABLE *file_hash = hashtable_new();
+    HASHTABLE *file_hash = hashtable_new();
 
+    printf("dir name is %s\n", argv[argc-1]);
+    scan_directory(argv[argc-1]);
+    write(path_names[]);
 
     while((opt = getopt(argc, argv, OPTLIST)) != -1) {
         if(opt == 'a'){
-            command(opt);
+            aflag = !aflag;
         }
         else if(opt == 'A'){
             exit(EXIT_FAILURE);
         }
         else if(opt == 'f'){
-            command(opt);
-            argument(optarg);
+            char *file_hash = strSHA2(optarg);
+            compare(file_hash);
         }
         else if(opt == 'h'){
-            command(opt);
-            argument(optarg);
+            compare(optarg);
         }
         else if(opt == 'l'){
-            command(opt);
+            compare_all();
         }
         else if(opt == 'q'){
-            command(opt);
+            if (compare_all()){
+                exit(EXIT_FAILURE);
+            }
+            else{
+                exit(EXIT_SUCCESS);
+            }
         }
         else{
             argc = -1;
@@ -53,8 +61,9 @@ int main(int argc, char* argv[]) {
         printf("unexpected option\n");  
         exit(EXIT_FAILURE);
     }
-    
-    printf("dir name is %s\n", argv[optind]);
-    scan_directory(argv[optind]);
-    //printf("the first file path is %s\n", path_names[0]);
+
+    printf("num_of_file:%i\n", num_of_files);
+    printf("num_of_bytes:%i\n", num_of_bytes);
+    printf("num_of_dup:%i\n", num_of_dup);
+    printf("bytes_of_dup:%i\n", bytes_of_dup);
 }

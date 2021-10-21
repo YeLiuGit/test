@@ -25,8 +25,9 @@ typedef LIST * HASHTABLE;
 //-----------------global variables goes here-------------------
 extern int num_of_files;
 extern int num_of_bytes;
-extern int num_of_unique;
-extern int bytes_of_unique;
+extern int num_of_dup;
+extern int bytes_of_dup;
+extern bool aflag;
 
 extern char *dir_name;
 extern char *path_names[];
@@ -34,12 +35,6 @@ extern HASHTABLE *file_hash;
 
 //-----------------global functions goes here-------------------
 //functions abour list
-
-extern void command(char opt);
-extern void argument(char* arg);
-extern void scan_directory(char *dirname);
-
-
 extern	LIST	*list_new(void);
 
 extern	LIST	*list_add(  LIST *list, char *newstring);
@@ -55,5 +50,11 @@ extern	void		 hashtable_add( HASHTABLE *, char *string);
 
 //  DETERMINE IF A REQUIRED STRING ALREADY EXISTS IN A GIVEN HASHTABLE
 extern	bool		 hashtable_find(HASHTABLE *, char *string);
+
+//-------------------------------------------------------------
+extern void scan_directory(char *dirname);
+extern void write(char* pahts[])
+extern void compare(char *hash);
+extern bool compare_all();
 
 
