@@ -19,4 +19,4 @@ strSHA2.o : strSHA2.c duplicates.h
 	$(C11) -c strSHA2.c
 
 clean:
-	rm -f duplicates duplicates.o compare.o strSHA2.o
+	rm -f duplicates duplicates.o compare.o write_data.o hashtable.o strSHA2.o

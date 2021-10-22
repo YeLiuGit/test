@@ -5,6 +5,7 @@
 
 #include "duplicates.h"
 
+//build functions about HASHTABLE, copied form workshop 7 soultion
 LIST *list_new(void)
 {
     return NULL;
@@ -47,9 +48,8 @@ LIST *list_add(LIST *list, char *newstring)
 
 uint32_t hash_string(char *string)
 {
-
     uint32_t hash = 0;
-	//printf("%s\n END\n", string);
+
     while(*string != '\0') {
         hash = hash*33 + *string;
         ++string;
@@ -68,13 +68,12 @@ HASHTABLE *hashtable_new(void)
 
 void hashtable_add(HASHTABLE *hashtable, char *string)
 {
-	//printf("b\n");
     uint32_t h   = hash_string(string) % HUGE_INT;    // choose list
-	//printf("a\n");
+
     hashtable[h] = list_add(hashtable[h], string);
 }
 
-//  DETERMINE IF A REQUIRED STRING ALREADY EXISTS IN A GIVEN HASHTABLE
+
 bool hashtable_find(HASHTABLE *hashtable, char *string)
 {
     uint32_t h	= hash_string(string) % HUGE_INT;     // choose list
