@@ -44,10 +44,15 @@ void scan_directory(char *dirname)
         else if(dp->d_name[0] == dots[0]){
             //if has option -a, add pathname to path_name[]
         	if(aflag){
-        	path_names[num_of_files] = strdup(pathname);
-            //calculate num_of_files and num_of_bytes here
-            num_of_bytes = num_of_bytes + stat_info.st_size;
-            ++num_of_files;
+        	    if(dp->d_type == 4){
+        	    	scan_directory(pathname);
+        	    }
+        	    else{
+        		path_names[num_of_files] = strdup(pathname);
+            		//calculate num_of_files and num_of_bytes here
+            		num_of_bytes = num_of_bytes + stat_info.st_size;
+            		++num_of_files;
+            	    }
         	}
         }
         //find a directory in current dirname
@@ -76,7 +81,7 @@ void write(){
     while(path_names[i] != NULL){
         //hash it
         char *hash = strSHA2(path_names[i]);
-        ++i;
+        
         //not duplicates files, add hash into HASHTABLE
         if(!hashtable_find(file_hash, hash)){
             hashtable_add(file_hash, hash);
@@ -90,5 +95,6 @@ void write(){
             //this global use for option -q
             find_dup = true;
         }
+        ++i;
     }
 }
