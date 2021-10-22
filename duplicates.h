@@ -34,6 +34,7 @@ extern char *dir_name;
 extern char *path_names[];
 extern int dup[];
 extern HASHTABLE *file_hash;
+extern char *f_filename;
 
 //-----------------global functions goes here-------------------
 //functions abour list
