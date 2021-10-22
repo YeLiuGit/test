@@ -44,11 +44,13 @@ void scan_directory(char *dirname)
         else if(dp->d_name[0] == dots[0]){
             //if has option -a, add pathname to path_name[]
         	if(aflag){
+                //if find a directory begin with "."
         	    if(dp->d_type == 4){
         	    	scan_directory(pathname);
         	    }
         	    else{
-        		path_names[num_of_files] = strdup(pathname);
+                //if find a file
+        		    path_names[num_of_files] = strdup(pathname);
             		//calculate num_of_files and num_of_bytes here
             		num_of_bytes = num_of_bytes + stat_info.st_size;
             		++num_of_files;
